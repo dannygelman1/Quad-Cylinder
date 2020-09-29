@@ -22,6 +22,7 @@ def adjustHeight(sliderHeight, *args, **kwargs):
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
     cmds.select(quadcylinderName, r=True)
+    print(quadcylinderName)
     cmds.setAttr('polyCylinder' + quadcylinderNumber + '.height', valHeight, **kwargs) 
     
 def adjustRadius(sliderRadius, *args, **kwargs):
@@ -36,6 +37,7 @@ def adjustRadius(sliderRadius, *args, **kwargs):
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
     cmds.select(quadcylinderName, r=True)
+    print(quadcylinderName)
     cmds.setAttr('polyCylinder' + quadcylinderNumber+ '.radius', valRadius, **kwargs) 
     
 def adjustSubH(sliderSubH, *args, **kwargs):
@@ -46,10 +48,9 @@ def adjustSubH(sliderSubH, *args, **kwargs):
     """
     
     quadcylinderls = cmds.ls('quad*', long=True)
-    print(quadcylinderls)
-    lengthName = len(quadcylinderls[len(quadcylinderls)-1])
-    multipleDigitOffset = lengthName - 17
-    quadcylinderName = quadcylinderls[len(quadcylinderls)-1][1:6+multipleDigitOffset]
+    quadcylinderNumber= str(len(quadcylinderls)/2)
+    quadcylinderName = 'quad' + quadcylinderNumber
+    print(quadcylinderName)
     cmds.delete(quadcylinderName)
     base()
     
@@ -61,10 +62,10 @@ def adjustCap(sliderHeight, *args, **kwargs):
     """
     
     quadcylinderls = cmds.ls('quad*', long=True)
-    lengthName = len(quadcylinderls[len(quadcylinderls)-1])
-    multipleDigitOffset = lengthName - 17
-    capName = quadcylinderls[len(quadcylinderls)-1][1:6+multipleDigitOffset]
-    cmds.delete(capName)
+    quadcylinderNumber= str(len(quadcylinderls)/2)
+    quadcylinderName = 'quad' + quadcylinderNumber
+    print(quadcylinderName)
+    cmds.delete(quadcylinderName)
     base()     
     
 def adjustSubAx(sliderSubAx, *args, **kwargs):
@@ -75,10 +76,10 @@ def adjustSubAx(sliderSubAx, *args, **kwargs):
     """
     
     quadcylinderls = cmds.ls('quad*', long=True)
-    lengthName = len(quadcylinderls[len(quadcylinderls)-1])
-    multipleDigitOffset = lengthName - 17
-    quadName = quadcylinderls[len(quadcylinderls)-1][1:6+multipleDigitOffset]
-    cmds.delete(quadName)
+    quadcylinderNumber= str(len(quadcylinderls)/2)
+    quadcylinderName = 'quad' + quadcylinderNumber
+    print(quadcylinderName)
+    cmds.delete(quadcylinderName)
     base()   
 
 HeightSlider = cmds.floatSliderGrp(label='Height', columnAlign= (1,'right'), field=True, min=1, max=5, value=0, step=0.1, dc = 'empty')
@@ -116,15 +117,13 @@ def base():
     startEdgeToDelete = totaledges - subax*2
     finalStem = cmds.polyCylinder(n='quad#', r=radius, h=height, sx=subax, sy=subheight, sc=subcap)
     quadcylinderls = cmds.ls('quad*', long=True)
-    lengthName = len(quadcylinderls[len(quadcylinderls)-1])
-    multipleDigitOffset = lengthName - 17
-    quadcylinderNumber= quadcylinderls[len(quadcylinderls)-1][5:6+multipleDigitOffset]
+    quadcylinderNumber= str(len(quadcylinderls)/2)
     
     stringTodelete = ''
     listtodel = []
     
     for i in range (startEdgeToDelete,totaledges,2):
-        print (i)
+        #print (i)
         listtodel.append('quad' + str(quadcylinderNumber) + '.e[' + str(i) + ']')
 
         #if i != totaledges -2:
