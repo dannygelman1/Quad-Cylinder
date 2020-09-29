@@ -19,12 +19,10 @@ def adjustHeight(sliderHeight, *args, **kwargs):
     
     valHeight = cmds.floatSliderGrp(sliderHeight, q=True, value=True)
     quadcylinderls = cmds.ls('quad*', long=True)
-    quadcylinderNumber= len(quadcylinderls)/2
-    quadcylinderName = 'quad' + str(quadcylinderNumber)
-    print('QuadCylindnum', quadcylinderNumber)
-    print('QuadCylindname', quadcylinderName)
+    quadcylinderNumber= str(len(quadcylinderls)/2)
+    quadcylinderName = 'quad' + quadcylinderNumber
     cmds.select(quadcylinderName, r=True)
-    cmds.setAttr('polyCylinder' + str(quadcylinderNumber) + '.height', valHeight, **kwargs) 
+    cmds.setAttr('polyCylinder' + quadcylinderNumber + '.height', valHeight, **kwargs) 
     
 def adjustRadius(sliderRadius, *args, **kwargs):
     """
@@ -35,13 +33,8 @@ def adjustRadius(sliderRadius, *args, **kwargs):
     
     valRadius = cmds.floatSliderGrp(sliderRadius, q=True, value=True)
     quadcylinderls = cmds.ls('quad*', long=True)
-    print(quadcylinderls)
-    lengthName = len(quadcylinderls[len(quadcylinderls)-1])
-    multipleDigitOffset = lengthName - 17
-    print(lengthName)
-    quadcylinderName = quadcylinderls[len(quadcylinderls)-1][1:6+multipleDigitOffset]
-    quadcylinderNumber= quadcylinderls[len(quadcylinderls)-1][5:6+multipleDigitOffset]
-    print('QuadCylindnum', quadcylinderNumber)
+    quadcylinderNumber= str(len(quadcylinderls)/2)
+    quadcylinderName = 'quad' + quadcylinderNumber
     cmds.select(quadcylinderName, r=True)
     cmds.setAttr('polyCylinder' + quadcylinderNumber+ '.radius', valRadius, **kwargs) 
     
