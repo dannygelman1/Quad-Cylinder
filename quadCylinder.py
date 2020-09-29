@@ -18,9 +18,8 @@ def adjustHeight(sliderHeight, *args, **kwargs):
     """
     
     valHeight = cmds.floatSliderGrp(sliderHeight, q=True, value=True)
-    quadcylinderls = cmds.ls('quad*', long=True)
-    quadcylinderNumber= str(len(quadcylinderls)/2)
-    quadcylinderName = 'quad' + quadcylinderNumber
+    quadcylinderName = nameObject()
+    quadcylinderNumber = numberObject()
     cmds.select(quadcylinderName, r=True)
     cmds.setAttr('polyCylinder' + quadcylinderNumber + '.height', valHeight, **kwargs) 
     
@@ -32,9 +31,8 @@ def adjustRadius(sliderRadius, *args, **kwargs):
     """
     
     valRadius = cmds.floatSliderGrp(sliderRadius, q=True, value=True)
-    quadcylinderls = cmds.ls('quad*', long=True)
-    quadcylinderNumber= str(len(quadcylinderls)/2)
-    quadcylinderName = 'quad' + quadcylinderNumber
+    quadcylinderName = nameObject()
+    quadcylinderNumber = numberObject()
     cmds.select(quadcylinderName, r=True)
     cmds.setAttr('polyCylinder' + quadcylinderNumber+ '.radius', valRadius, **kwargs) 
     
@@ -44,10 +42,7 @@ def adjustSubH(sliderSubH, *args, **kwargs):
         
     Adjusts the cylinder subdivision height based on the slider value
     """
-    
-    quadcylinderls = cmds.ls('quad*', long=True)
-    quadcylinderNumber= str(len(quadcylinderls)/2)
-    quadcylinderName = 'quad' + quadcylinderNumber
+    quadcylinderName = nameObject()
     cmds.delete(quadcylinderName)
     base()
     
@@ -57,10 +52,7 @@ def adjustCap(sliderCap, *args, **kwargs):
         
     Adjusts the cylinder subdivision cap based on the slider value
     """
-    
-    quadcylinderls = cmds.ls('quad*', long=True)
-    quadcylinderNumber= str(len(quadcylinderls)/2)
-    quadcylinderName = 'quad' + quadcylinderNumber
+    quadcylinderName = nameObject()
     cmds.delete(quadcylinderName)
     base()     
     
@@ -70,12 +62,21 @@ def adjustSubAx(sliderSubAx, *args, **kwargs):
         
     Adjusts the cylinder subdivision axis based on the slider value
     """
-    
+    quadcylinderName = nameObject()
+    cmds.delete(quadcylinderName)
+    base() 
+      
+def nameObject():
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
-    cmds.delete(quadcylinderName)
-    base()   
+    return quadcylinderName
+    
+def numberObject():
+    quadcylinderls = cmds.ls('quad*', long=True)
+    quadcylinderNumber= str(len(quadcylinderls)/2)
+    return quadcylinderNumber
+    
 
 HeightSlider = cmds.floatSliderGrp(label='Height', columnAlign= (1,'right'), field=True, min=1, max=5, value=0, step=0.1, dc = 'empty')
 cmds.floatSliderGrp(HeightSlider,  e=True, dc = partial(adjustHeight, HeightSlider))
@@ -86,10 +87,10 @@ cmds.floatSliderGrp(RadiusSlider,  e=True, dc = partial(adjustRadius, RadiusSlid
 SubHSlider = cmds.intSliderGrp(label='Subdivision Height', columnAlign= (1,'right'), field=True, min=1, max=5, value=0, step=0.1, dc = 'empty')
 cmds.intSliderGrp(SubHSlider,  e=True, dc = partial(adjustSubH, SubHSlider))
 
-CapSlider = cmds.intSliderGrp(label='Cap', columnAlign= (1,'right'), field=True, min=2, max=5, value=0, step=0.1, dc = 'empty')
+CapSlider = cmds.intSliderGrp(label='Subdivision Cap', columnAlign= (1,'right'), field=True, min=2, max=5, value=0, step=0.1, dc = 'empty')
 cmds.intSliderGrp(CapSlider,  e=True, dc = partial(adjustCap, CapSlider))
 
-SubAxSlider = cmds.intSliderGrp(label='SubAx', columnAlign= (1,'right'), field=True, min=6, max=100, value=0, step=0.1, dc = 'empty')
+SubAxSlider = cmds.intSliderGrp(label='Subdivision Axis', columnAlign= (1,'right'), field=True, min=6, max=100, value=0, step=0.1, dc = 'empty')
 cmds.intSliderGrp(SubAxSlider,  e=True, dc = partial(adjustSubAx, SubAxSlider))
 
 
