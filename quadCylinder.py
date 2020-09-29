@@ -85,7 +85,6 @@ def adjustSubAx(sliderSubAx, *args, **kwargs):
 HeightSlider = cmds.floatSliderGrp(label='Height', columnAlign= (1,'right'), field=True, min=1, max=5, value=0, step=0.1, dc = 'empty')
 cmds.floatSliderGrp(HeightSlider,  e=True, dc = partial(adjustHeight, HeightSlider))
 
-
 RadiusSlider = cmds.floatSliderGrp(label='Radius', columnAlign= (1,'right'), field=True, min=1, max=5, value=0, step=0.1, dc = 'empty')
 cmds.floatSliderGrp(RadiusSlider,  e=True, dc = partial(adjustRadius, RadiusSlider))
 
@@ -95,7 +94,7 @@ cmds.intSliderGrp(SubHSlider,  e=True, dc = partial(adjustSubH, SubHSlider))
 CapSlider = cmds.intSliderGrp(label='Cap', columnAlign= (1,'right'), field=True, min=2, max=5, value=0, step=0.1, dc = 'empty')
 cmds.intSliderGrp(CapSlider,  e=True, dc = partial(adjustCap, CapSlider))
 
-SubAxSlider = cmds.intSliderGrp(label='SubAx', columnAlign= (1,'right'), field=True, min=4, max=16, value=0, step=0.1, dc = 'empty')
+SubAxSlider = cmds.intSliderGrp(label='SubAx', columnAlign= (1,'right'), field=True, min=6, max=100, value=0, step=0.1, dc = 'empty')
 cmds.intSliderGrp(SubAxSlider,  e=True, dc = partial(adjustSubAx, SubAxSlider))
 
 
@@ -111,27 +110,17 @@ def base():
     subax = cmds.intSliderGrp(SubAxSlider, q=True, value=True)
     subheight = cmds.intSliderGrp(SubHSlider, q=True, value=True)
     subcap = cmds.intSliderGrp(CapSlider, q=True, value=True)
+    #quaded cylinders can only have an even subdivision axis number, so this ensures that it will only be set to an even number
     if (subax%2 == 1):
         subax+=1
     totaledges = ((subcap*4)+((subheight*2)-1))*subax
     startEdgeToDelete = totaledges - subax*2
-    finalStem = cmds.polyCylinder(n='quad#', r=radius, h=height, sx=subax, sy=subheight, sc=subcap)
+    cylinder = cmds.polyCylinder(n='quad#', r=radius, h=height, sx=subax, sy=subheight, sc=subcap)
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     
-    stringTodelete = ''
+    #deleting every other edge in the inner most circle of the cylinder to turn the inner triangles into quads
     listtodel = []
-    
     for i in range (startEdgeToDelete,totaledges,2):
-        #print (i)
         listtodel.append('quad' + str(quadcylinderNumber) + '.e[' + str(i) + ']')
-
-        #if i != totaledges -2:
-        #    stringTodelete = stringTodelete + 'quad1' + '.e[' + str(i) + ']' + ','
-        #else:
-        #    stringTodelete = stringTodelete + 'quad1' + '.e[' + str(i) + ']'
-        
-    #stringTodelete = stringTodelete + 'quad1' + '.e[' + str(startEdgeToDelete) + ']'
-    #listtodel.append('quad1' + '.e[' + str(startEdgeToDelete) + ']')
-    #listtodel.append('quad1' + '.e[' + str(startEdgeToDelete + 2) + ']')
     cmds.delete(listtodel)
