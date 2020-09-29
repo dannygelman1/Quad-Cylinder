@@ -12,9 +12,9 @@ cmds.separator(h=20)
 #Stem Funcations
 def adjustHeight(sliderHeight, *args, **kwargs):
     """
-    sliderHeight: floatSliderGrp object holding the stem radius value
+    sliderHeight: floatSliderGrp object holding the cylinder height value
         
-    Adjusts the stem radius of the stem based on the slider value
+    Adjusts the cylinder height based on the slider value
     """
     
     valHeight = cmds.floatSliderGrp(sliderHeight, q=True, value=True)
@@ -27,9 +27,9 @@ def adjustHeight(sliderHeight, *args, **kwargs):
     
 def adjustRadius(sliderRadius, *args, **kwargs):
     """
-    sliderHeight: floatSliderGrp object holding the stem radius value
+    sliderRadius: floatSliderGrp object holding the cylinder radius value
         
-    Adjusts the stem radius of the stem based on the slider value
+    Adjusts the cylinder radius based on the slider value
     """
     
     valRadius = cmds.floatSliderGrp(sliderRadius, q=True, value=True)
@@ -42,9 +42,9 @@ def adjustRadius(sliderRadius, *args, **kwargs):
     
 def adjustSubH(sliderSubH, *args, **kwargs):
     """
-    sliderHeight: floatSliderGrp object holding the stem radius value
+    sliderSubH: floatSliderGrp object holding the cylinder subdivision height value
         
-    Adjusts the stem radius of the stem based on the slider value
+    Adjusts the cylinder subdivision height based on the slider value
     """
     
     quadcylinderls = cmds.ls('quad*', long=True)
@@ -54,11 +54,11 @@ def adjustSubH(sliderSubH, *args, **kwargs):
     cmds.delete(quadcylinderName)
     base()
     
-def adjustCap(sliderHeight, *args, **kwargs):
+def adjustCap(sliderCap, *args, **kwargs):
     """
-    sliderHeight: floatSliderGrp object holding the stem radius value
+    sliderCap: floatSliderGrp object holding the cylinder subdivision cap value
         
-    Adjusts the stem radius of the stem based on the slider value
+    Adjusts the cylinder subdivision cap based on the slider value
     """
     
     quadcylinderls = cmds.ls('quad*', long=True)
@@ -70,9 +70,9 @@ def adjustCap(sliderHeight, *args, **kwargs):
     
 def adjustSubAx(sliderSubAx, *args, **kwargs):
     """
-    sliderHeight: floatSliderGrp object holding the stem radius value
+    sliderSubAx: floatSliderGrp object holding the cylinder subdivision axis value
         
-    Adjusts the stem radius of the stem based on the slider value
+    Adjusts the cylinder subdivision axis based on the slider value
     """
     
     quadcylinderls = cmds.ls('quad*', long=True)
@@ -99,7 +99,7 @@ cmds.intSliderGrp(SubAxSlider,  e=True, dc = partial(adjustSubAx, SubAxSlider))
 
 
 #Butto'
-cmds.button(l = 'Create Cake Stand',  c = 'base()')
+cmds.button(l = 'Create Quad Cylinder',  c = 'base()')
 cmds.separator(h=20)
 cmds.showWindow()
 
