@@ -22,7 +22,6 @@ def adjustHeight(sliderHeight, *args, **kwargs):
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
     cmds.select(quadcylinderName, r=True)
-    print(quadcylinderName)
     cmds.setAttr('polyCylinder' + quadcylinderNumber + '.height', valHeight, **kwargs) 
     
 def adjustRadius(sliderRadius, *args, **kwargs):
@@ -37,7 +36,6 @@ def adjustRadius(sliderRadius, *args, **kwargs):
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
     cmds.select(quadcylinderName, r=True)
-    print(quadcylinderName)
     cmds.setAttr('polyCylinder' + quadcylinderNumber+ '.radius', valRadius, **kwargs) 
     
 def adjustSubH(sliderSubH, *args, **kwargs):
@@ -50,7 +48,6 @@ def adjustSubH(sliderSubH, *args, **kwargs):
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
-    print(quadcylinderName)
     cmds.delete(quadcylinderName)
     base()
     
@@ -64,7 +61,6 @@ def adjustCap(sliderCap, *args, **kwargs):
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
-    print(quadcylinderName)
     cmds.delete(quadcylinderName)
     base()     
     
@@ -78,7 +74,6 @@ def adjustSubAx(sliderSubAx, *args, **kwargs):
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
-    print(quadcylinderName)
     cmds.delete(quadcylinderName)
     base()   
 
@@ -98,7 +93,7 @@ SubAxSlider = cmds.intSliderGrp(label='SubAx', columnAlign= (1,'right'), field=T
 cmds.intSliderGrp(SubAxSlider,  e=True, dc = partial(adjustSubAx, SubAxSlider))
 
 
-#Butto'
+#Button
 cmds.button(l = 'Create Quad Cylinder',  c = 'base()')
 cmds.separator(h=20)
 cmds.showWindow()
