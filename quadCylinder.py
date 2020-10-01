@@ -67,12 +67,22 @@ def adjustSubAx(sliderSubAx, *args, **kwargs):
     base() 
       
 def nameObject():
+    """
+    name: prefix of the object
+
+    Finds the name of the last created object in the scene that starts with the name prefix
+    """
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     quadcylinderName = 'quad' + quadcylinderNumber
     return quadcylinderName
     
 def numberObject():
+    """
+    number: prefix of the object
+
+    Finds the number of the last created object in the scene that starts with the name prefix
+    """
     quadcylinderls = cmds.ls('quad*', long=True)
     quadcylinderNumber= str(len(quadcylinderls)/2)
     return quadcylinderNumber
@@ -101,6 +111,9 @@ cmds.showWindow()
 
     
 def base():
+    """
+    Creates a quaded cylinder with the given paramters
+    """
     radius= cmds.floatSliderGrp(RadiusSlider, q=True, value=True)
     height = cmds.floatSliderGrp(HeightSlider, q=True, value=True)
     subax = cmds.intSliderGrp(SubAxSlider, q=True, value=True)
